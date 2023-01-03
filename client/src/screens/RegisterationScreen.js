@@ -1,14 +1,20 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { registerNewUser } from "../actions/userActions";
+import Error from "../components/Error";
+import Loader from "../components/Loader";
+import Success from "../components/Success";
 
 export default function RegisterationScreen() {
+  const registerNewUserReducer = useSelector(
+    (state) => state.registerNewUserReducer
+  );
+  const { loading, error, success } = registerNewUserReducer;
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const dispatch = useDispatch();
-  // const registerNewUserReducer = useSelector();
   const register = (e) => {
     e.preventDefault();
     if (password === confirmPassword) {
@@ -25,9 +31,15 @@ export default function RegisterationScreen() {
   return (
     <div>
       <div className="row justify-content-center">
-        <div className="col-md-5 card p-2" style={{ marginTop: "150px" }}>
+        <div
+          className="col-md-5 card p-2 text-center"
+          style={{ marginTop: "150px" }}
+        >
           <div>
             <h2 className="text-center m-3">Register</h2>
+            {loading && <Loader />}
+            {error && <Error errorMessage="Email already used" />}
+            {success && <Success successMessage="Registered Successfully" />}
             <form onSubmit={register}>
               <input
                 type="text"
@@ -68,6 +80,9 @@ export default function RegisterationScreen() {
                 </button>
               </div>
             </form>
+            <a className="text-center m-3" href="/login">
+              Login
+            </a>
           </div>
         </div>
       </div>

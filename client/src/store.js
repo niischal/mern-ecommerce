@@ -16,7 +16,7 @@ const finalReducer = combineReducers({
   getAllProductsReducer: getAllProductsReducer,
   getProductByIdReducer: getProductByIdReducer,
   cartReducer: cartReducer,
-  registeNewUserReducer: registerNewUserReducer,
+  registerNewUserReducer: registerNewUserReducer,
   loginUserReducer: loginUserReducer,
 });
 
@@ -31,6 +31,7 @@ const currentUser = localStorage.getItem("currentUser")
 const initialState = {
   cartReducer: { cartItem: cartItems },
   loginUserReducer: { currentUser: currentUser },
+  registerNewUserReducer: {},
 };
 
 const composeEnhancers = composeWithDevTools({

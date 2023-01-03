@@ -25,3 +25,12 @@ export const loginUser = (user) => (dispatch) => {
       dispatch({ type: "USER_LOGIN_FAILURE", paylod: err });
     });
 };
+
+export const logoutUser = () => (dispatch) => {
+  localStorage.removeItem("currentUser");
+  localStorage.removeItem("cartItems");
+
+  dispatch({ type: "USER_LOGOUT" });
+
+  window.location.href = "/login";
+};

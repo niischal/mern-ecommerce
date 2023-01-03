@@ -41,6 +41,10 @@ export const loginUserReducer = (state = {}, action) => {
         loading: false,
         error: "User Login Failed",
       };
+    case "USER_LOGOUT":
+      return {
+        ...state,
+      };
     default:
       return state;
   }

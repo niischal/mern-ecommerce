@@ -1,9 +1,11 @@
 import React from "react";
 import { BsFillCartFill } from "react-icons/bs";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { logoutUser } from "../actions/userActions";
 
 const Navbar = () => {
+  const dispatch = useDispatch();
   const addToCartReducer = useSelector((state) => state.cartReducer);
   const { cartItem } = addToCartReducer;
 
@@ -25,11 +27,38 @@ const Navbar = () => {
         >
           <span className="navbar-toggler-icon"></span>
         </button>
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+        <div className="collapse navbar-collapse " id="navbarSupportedContent">
           <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
             {currentUser ? (
-              <div>
-                <a href=""></a>
+              <div className="dropdown  me-2">
+                <button
+                  className="btn btn-outline-success dropdown-toggle"
+                  type="button"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="false"
+                >
+                  {currentUser.name}
+                </button>
+                <ul className="dropdown-menu">
+                  <li>
+                    <a className="dropdown-item" href="/profile">
+                      Profile
+                    </a>
+                  </li>
+                  <li>
+                    <a className="dropdown-item" href="/orders">
+                      Orders
+                    </a>
+                  </li>
+                  <li>
+                    <button
+                      className="dropdown-item"
+                      onClick={() => dispatch(logoutUser())}
+                    >
+                      Logout
+                    </button>
+                  </li>
+                </ul>
               </div>
             ) : (
               <li className="nav-item">
